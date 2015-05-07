@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NoSQLDemo.Models;
 using NoSQLDemo.Repositories;
 
@@ -10,7 +6,7 @@ namespace NoSQLDemo
 {
     public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Demo();
         }
@@ -24,12 +20,12 @@ namespace NoSQLDemo
                            LastName = "Smith",
                            HomeAddress = new AddressModel()
                                          {
-                                          AddressLine1   = "123 Happy Ln.",
-                                          AddressLine2 = "",
-                                          City = "Charlotte",
-                                          State = "NC"
+                                             AddressLine1 = "123 Happy Ln.",
+                                             AddressLine2 = "",
+                                             City = "Charlotte",
+                                             State = "NC"
                                          },
-                                         Phone = "123-456-7890"
+                           Phone = "123-456-7890"
                        };
 
             SiaqoDbDemo(user);
@@ -41,7 +37,18 @@ namespace NoSQLDemo
 
             repo.AddUser(user);
 
+            var user2 = user;
+
+
+            user2.FirstName = "Bob";
+            user2.Id = Guid.NewGuid();
+
+            repo.AddUser(user2);
+
             var newUser = repo.GetUser(user.Id);
+            var newUser2 = repo.GetUser(user2.Id);
+
+            var filteredUser = repo.Get<UserModel>(x => x.FirstName.Contains("Bo"));
 
             newUser.LastName = "NOT SMITH";
 

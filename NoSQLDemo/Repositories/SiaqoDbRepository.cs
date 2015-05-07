@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using NoSQLDemo.DbFactories;
 using NoSQLDemo.Models;
 
@@ -13,6 +16,15 @@ namespace NoSQLDemo.Repositories
             var user = db.Query<UserModel>().SqoFirstOrDefault(x => x.Id == id);
 
             return user;
+        }
+
+        public List<T> Get<T>(Expression<Func<T, bool>> predicate)
+        {
+            var db = SiaqoDbFactory.GetInstance();
+
+            var users = db.Query<T>().SqoWhere(predicate).ToList();
+
+            return users;
         }
 
         public bool AddUser(UserModel user)

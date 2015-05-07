@@ -10,7 +10,8 @@ namespace NoSQLDemo.DbFactories
         {
             if (_instance == null)
             {
-                _instance = new Siaqodb(@"c:\databases\");
+                _instance = new Siaqodb(@"c:\databases\SiaqoDb\");
+                _instance.Flush();
             }
             return _instance;
         }
