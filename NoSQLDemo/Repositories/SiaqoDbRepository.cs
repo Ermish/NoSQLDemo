@@ -9,15 +9,6 @@ namespace NoSQLDemo.Repositories
 {
     public class SiaqoDbRepository : IRepository
     {
-        public UserModel GetUser(Guid id)
-        {
-            var db = SiaqoDbFactory.GetInstance();
-
-            var user = db.Query<UserModel>().SqoFirstOrDefault(x => x.Id == id);
-
-            return user;
-        }
-
         public List<T> Get<T>(Expression<Func<T, bool>> predicate)
         {
             var db = SiaqoDbFactory.GetInstance();
@@ -25,6 +16,15 @@ namespace NoSQLDemo.Repositories
             var users = db.Query<T>().SqoWhere(predicate).ToList();
 
             return users;
+        }
+
+        public UserModel GetUser(Guid id)
+        {
+            var db = SiaqoDbFactory.GetInstance();
+
+            var user = db.Query<UserModel>().SqoFirstOrDefault(x => x.Id == id);
+
+            return user;
         }
 
         public bool AddUser(UserModel user)

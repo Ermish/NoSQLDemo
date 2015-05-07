@@ -8,12 +8,12 @@ namespace NoSQLDemo.DbFactories
 {
     public class CouchDbLiteFactory : IRepository
     {
-        public UserModel GetUser(Guid id)
+        public List<T> Get<T>(Expression<Func<T, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public List<T> Get<T>(Expression<Func<T, bool>> predicate)
+        public UserModel GetUser(Guid id)
         {
             throw new NotImplementedException();
         }
